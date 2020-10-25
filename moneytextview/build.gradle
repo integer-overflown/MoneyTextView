@@ -1,16 +1,12 @@
-
 apply plugin: 'com.android.library'
 
-
-
-
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 30
         versionCode 3
         versionName "1.1.0"
     }
@@ -23,8 +19,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    api fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 apply from: 'publish/config.gradle'

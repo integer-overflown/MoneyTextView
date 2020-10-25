@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MoneyTextView.iml" filepath="$PROJECT_DIR$/MoneyTextView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/example/MoneyTextView-example.iml" filepath="$PROJECT_DIR$/.idea/modules/example/MoneyTextView-example.iml" group="MoneyTextView/example" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Projects-MoneyTextView.iml" filepath="$PROJECT_DIR$/.idea/modules/Projects-MoneyTextView.iml" group="MoneyTextView" />
       <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
       <module fileurl="file://$PROJECT_DIR$/moneytextview/moneytextview.iml" filepath="$PROJECT_DIR$/moneytextview/moneytextview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/moneytextview/org.fabiomsr-moneytextview.iml" filepath="$PROJECT_DIR$/.idea/modules/moneytextview/org.fabiomsr-moneytextview.iml" group="MoneyTextView/moneytextview" />
     </modules>
   </component>
 </project>
