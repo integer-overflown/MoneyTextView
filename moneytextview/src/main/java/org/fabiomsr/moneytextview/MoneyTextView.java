@@ -23,9 +23,7 @@ import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 
-/*
-Modifications copyright (C) 2020
- */
+// Modifications copyright (C) 2020
 /**
  * Created by Fabiomsr on 20/5/16.
  */
