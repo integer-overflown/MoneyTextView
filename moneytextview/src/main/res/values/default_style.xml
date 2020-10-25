@@ -2,7 +2,6 @@
 <resources>
 
     <style name="MoneyTextViewDefaultStyle">
-        <item name="format">@string/default_format</item>
         <item name="symbol">$</item>
         <item name="decimalSeparator">\'</item>
         <item name="baseTextSize">18sp</item>
