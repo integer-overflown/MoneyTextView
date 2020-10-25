@@ -268,12 +268,6 @@ public class MoneyTextView extends View {
   /// SETTERS
   ///
 
-  public void setAmount(BigDecimal amount, String symbol) {
-    mAmount = amount;
-    mSymbolSection.text = symbol;
-    requestLayout();
-  }
-
   public void setDecimalFormat(DecimalFormat decimalFormat) {
     mDecimalFormat = decimalFormat;
     mDecimalSeparator = decimalFormat.getDecimalFormatSymbols().getDecimalSeparator();
