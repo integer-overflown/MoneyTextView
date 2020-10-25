@@ -9,16 +9,23 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.text.BidiFormatter;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.Locale;
 
+/*
+Modifications copyright (C) 2020
+ */
 /**
  * Created by Fabiomsr on 20/5/16.
  */
@@ -32,13 +39,13 @@ public class MoneyTextView extends View {
   private static final int GRAVITY_CENTER_HORIZONTAL = 32;
   private static final float MIN_PADDING             = 2;
 
+  private BigDecimal mAmount;
   private TextPaint     mTextPaint;
   private DecimalFormat mDecimalFormat;
   private Section       mSymbolSection;
   private Section       mIntegerSection;
   private Section       mDecimalSection;
   private char          mDecimalSeparator;
-  private float         mAmount;
   private int           mGravity;
   private int           mSymbolGravity;
   private int           mDecimalGravity;
@@ -87,7 +94,7 @@ public class MoneyTextView extends View {
 
     try {
       mSymbolSection.text = typedArray.getString(R.styleable.MoneyTextView_symbol);
-      mAmount = typedArray.getFloat(R.styleable.MoneyTextView_amount, 0);
+      mAmount = new BigDecimal(typedArray.getString(R.styleable.MoneyTextView_amount));
       mGravity = typedArray.getInt(R.styleable.MoneyTextView_gravity, GRAVITY_CENTER_VERTICAL | GRAVITY_CENTER_HORIZONTAL);
       mSymbolGravity = typedArray.getInt(R.styleable.MoneyTextView_symbolGravity, GRAVITY_TOP | GRAVITY_START);
       mDecimalGravity = typedArray.getInt(R.styleable.MoneyTextView_decimalGravity, GRAVITY_TOP);
@@ -102,30 +109,14 @@ public class MoneyTextView extends View {
       mDecimalSection.color = typedArray.getInt(R.styleable.MoneyTextView_decimalTextColor, mIntegerSection.color);
       mDecimalSection.drawUnderline = typedArray.getBoolean(R.styleable.MoneyTextView_decimalUnderline, false);
 
-      String format           = typedArray.getString(R.styleable.MoneyTextView_format);
-      String decimalSeparator = typedArray.getString(R.styleable.MoneyTextView_decimalSeparator);
       String fontPath         = typedArray.getString(R.styleable.MoneyTextView_fontPath);
       if (fontPath != null) {
         Typeface typeface = Typeface.createFromAsset(context.getAssets(), fontPath);
         mTextPaint.setTypeface(typeface);
       }
 
-      if (format == null) {
-        format = context.getString(R.string.default_format);
-      }
-
-      mDecimalFormat = new DecimalFormat(format);
-      DecimalFormatSymbols decimalFormatSymbol = new DecimalFormatSymbols(Locale.getDefault());
-
-      if (!TextUtils.isEmpty(decimalSeparator)) {
-        mDecimalSeparator = decimalSeparator.charAt(0);
-      } else {
-        mDecimalSeparator = context.getString(R.string.default_decimal_separator).charAt(0);
-      }
-
-      decimalFormatSymbol.setDecimalSeparator(mDecimalSeparator);
-      mDecimalFormat.setDecimalFormatSymbols(decimalFormatSymbol);
-
+      mDecimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.getDefault());
+      mDecimalSeparator = mDecimalFormat.getDecimalFormatSymbols().getDecimalSeparator();
       setAmount(mAmount);
     } finally {
       typedArray.recycle();
@@ -145,7 +136,7 @@ public class MoneyTextView extends View {
     setMeasuredDimension(mWidth, mHeight);
   }
 
-  public void setAmount(float amount) {
+  public void setAmount(BigDecimal amount) {
     mAmount = amount;
     requestLayout();
   }
@@ -277,7 +268,7 @@ public class MoneyTextView extends View {
   /// SETTERS
   ///
 
-  public void setAmount(float amount, String symbol) {
+  public void setAmount(BigDecimal amount, String symbol) {
     mAmount = amount;
     mSymbolSection.text = symbol;
     requestLayout();
@@ -285,7 +276,12 @@ public class MoneyTextView extends View {
 
   public void setDecimalFormat(DecimalFormat decimalFormat) {
     mDecimalFormat = decimalFormat;
+    mDecimalSeparator = decimalFormat.getDecimalFormatSymbols().getDecimalSeparator();
     requestLayout();
+  }
+
+  public void setLocale(Locale locale) {
+    setDecimalFormat((DecimalFormat) NumberFormat.getNumberInstance(locale));
   }
 
   public void setDecimalSeparator(char decimalSeparator) {
@@ -343,7 +339,7 @@ public class MoneyTextView extends View {
     invalidate();
   }
 
-  public float getAmount() {
+  public BigDecimal getAmount() {
     return mAmount;
   }
 

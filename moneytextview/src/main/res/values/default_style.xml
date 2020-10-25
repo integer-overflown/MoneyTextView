@@ -60,14 +60,12 @@
         <item name="symbolGravity">end|top</item>
     </style>
 
-
-
     <style name="MoneyTextViewStyleI" parent="MoneyTextViewStyleA">
-        <item name="symbol"></item>
+        <item name="symbol" />
     </style>
 
     <style name="MoneyTextViewStyleJ" parent="MoneyTextViewStyleB">
-        <item name="symbol"></item>
+        <item name="symbol" />
     </style>
 
 
