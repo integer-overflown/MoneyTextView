@@ -91,8 +91,10 @@ public class MoneyTextView extends View {
 
 
     try {
-      mSymbolSection.text = typedArray.getString(R.styleable.MoneyTextView_symbol);
-      mAmount = new BigDecimal(typedArray.getString(R.styleable.MoneyTextView_amount));
+      String amount = typedArray.getString(R.styleable.MoneyTextView_amount);
+      String symbol = typedArray.getString(R.styleable.MoneyTextView_symbol);
+      mSymbolSection.text = symbol == null ? Currency.getInstance(Locale.getDefault()).getSymbol() : symbol;
+      mAmount = amount == null ? BigDecimal.ZERO : new BigDecimal(amount);
       mGravity = typedArray.getInt(R.styleable.MoneyTextView_gravity, GRAVITY_CENTER_VERTICAL | GRAVITY_CENTER_HORIZONTAL);
       mSymbolGravity = typedArray.getInt(R.styleable.MoneyTextView_symbolGravity, GRAVITY_TOP | GRAVITY_START);
       mDecimalGravity = typedArray.getInt(R.styleable.MoneyTextView_decimalGravity, GRAVITY_TOP);
@@ -113,8 +115,17 @@ public class MoneyTextView extends View {
         mTextPaint.setTypeface(typeface);
       }
 
+      String separator = typedArray.getString(R.styleable.MoneyTextView_decimalSeparator);
       mDecimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.getDefault());
-      mDecimalSeparator = mDecimalFormat.getDecimalFormatSymbols().getDecimalSeparator();
+      DecimalFormatSymbols symbols = mDecimalFormat.getDecimalFormatSymbols();
+      if (TextUtils.isEmpty(separator))  // null or empty
+        mDecimalSeparator = symbols.getDecimalSeparator();
+      else {
+        // noinspection ConstantConditions
+        mDecimalSeparator = separator.charAt(0);
+        symbols.setDecimalSeparator(mDecimalSeparator);
+        mDecimalFormat.setDecimalFormatSymbols(symbols);
+      }
       setAmount(mAmount);
     } finally {
       typedArray.recycle();
