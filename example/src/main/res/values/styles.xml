@@ -8,6 +8,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="moneyTextViewStyle">@style/Widget.App.MoneyTextView</item>
+    </style>
+
+    <style name="Widget.App.MoneyTextView" parent="">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="baseTextColor">#fff</item>
+        <item name="baseTextSize">24sp</item>
     </style>
 
 

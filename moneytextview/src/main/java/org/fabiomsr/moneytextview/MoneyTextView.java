@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.text.BidiFormatter;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -87,7 +86,7 @@ public class MoneyTextView extends View {
     mTextPaintRoomSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mTextPaint.density, r.getDisplayMetrics());
 
     TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.MoneyTextView,
-                                                                      0, R.style.MoneyTextViewDefaultStyle);
+            R.attr.moneyTextViewStyle, R.style.MoneyTextViewDefaultStyle);
 
 
     try {
