@@ -40,7 +40,6 @@
 
         <attr name="includeDecimalSeparator" format="boolean"/>
         <attr name="decimalUnderline" format="boolean"/>
-        <attr name="fontPath" format="string"/>
         <attr name="fontFamily" format="string" />
     </declare-styleable>
     <attr name="moneyTextViewStyle" format="reference" />

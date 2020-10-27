@@ -109,9 +109,9 @@ public class MoneyTextView extends View {
       mDecimalSection.color = typedArray.getInt(R.styleable.MoneyTextView_decimalTextColor, mIntegerSection.color);
       mDecimalSection.drawUnderline = typedArray.getBoolean(R.styleable.MoneyTextView_decimalUnderline, false);
 
-      String fontPath         = typedArray.getString(R.styleable.MoneyTextView_fontPath);
-      if (fontPath != null) {
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), fontPath);
+      String fontFamily       = typedArray.getString(R.styleable.MoneyTextView_fontFamily);
+      if (fontFamily != null) {
+        Typeface typeface = Typeface.create(fontFamily, Typeface.NORMAL);
         mTextPaint.setTypeface(typeface);
       }
 
